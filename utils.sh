@@ -35,3 +35,7 @@ getStagit() {
     make && make install
     (which stagit >/dev/null 2>&1 && which stagit >/dev/null 2>&1) || errorOut
 }
+
+installPackages() {
+    apt install git make gcc libgit2-dev nginx certbot git-core fcgiwrap apache2-utils python-certbot-nginx
+}

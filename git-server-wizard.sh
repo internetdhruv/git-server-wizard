@@ -7,6 +7,13 @@ if [ $(id -u) -ne 0 ]; then
     exit 1
 fi
 
+(which figlet >/dev/null 2>&1 && figlet 'git server wizard') || echo "~~~~~~~~~~~git server wizard~~~~~~~~~~~"
+echo
+
+echo "The following packages will be needed: git, make, gcc, libgit2-dev, nginx, certbot, python-certbot-nginx, git-core, fcgiwrap, apache2-utils"
+echo "I can install these packages for you in case you are missing any (Ubuntu/Debian only)"
+confirm  "Should I install the packages? [y/N]?" || installPackages
+
 ## Source files
 . ./config.rc
 . ./utils.sh
@@ -28,12 +35,16 @@ echo "Git Web Pages Directory: $WWW_HOME"
 echo "Git Clone Base URL: $CLONE_URI"
 echo "Default Repo Owner: $DEFAULT_OWNER"
 echo "Default Repo Description: $DEFAULT_DESCRIPTION"
+echo
 confirm "Are you sure this is the config you want [y/N]" || exit 1
 confirm "Are you absolutely sure? [y/N]" || exit 1
 
+echo
+echo "[git-server-wizard] The git user is being created now..."
 ## Make the git user
 grep '$GIT_USER' /etc/passwd >/dev/null || adduser $GIT_USER || errorOut
 
+echo "[git-server-wizard] Creating git and web directories..."
 ## Make the git dir
 mkdir -p $GIT_HOME
 ## Make the HTML dir
@@ -46,6 +57,7 @@ mkdir -p $WWW_HOME
 chown -R $GIT_USER:$GIT_USER $GIT_HOME
 chown -R $GIT_USER:$GIT_USER $WWW_HOME
 
+echo "[git-server-wizard] Copying files..."
 ## Copy the config file to the git users home directory
 cp ./config.rc $GIT_HOME
 
@@ -62,3 +74,11 @@ mv ./stagit-gen-index.temp /usr/local/bin/stagit-gen-index
 chmod +x /usr/local/bin/stagit-newrepo
 chmod +x /usr/local/bin/stagit-gen-index
 mv ./template.temp $GIT_HOME/template
+
+echo "[git-server-wizard] Git Server Setup has been completed..."
+echo
+echo "[git-server-wizard] Setting up nginx..."
+
+echo "[git-server-wizard] Creating git http backend for git clone"
+sed 's/<<<SOURCE_CONFIG_HERE>>>/'$ESCAPED_HOME'\/config\.rc/' ./git-http-backend.conf > ./git-http-backend.conf.temp
+mv ./git-http-backend.conf.temp /etc/nginx/git-http-backend.conf
