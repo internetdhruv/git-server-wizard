@@ -2,6 +2,9 @@
 An automated script that creates a private git server and a public webpage to view the git repositories.
 I am running this server [here](git.dhruv-sharma.com), if you would like to take a look.
 
+Get it by `git clone https://github.com/dhruvsharma78/git-server-wizard.git` and run
+by `$ sudo sh git-server-wizard.sh`
+
 This script will:
 * Optionally, download a bunch of packages and their dependencies (Works only on Debian based systems for now):
   * (Required) [stagit](https://codemadness.org/stagit.html) - This is the tool that creates the public git webpage
