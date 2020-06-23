@@ -90,6 +90,7 @@ proto="$(echo "$CLONE_URI" | grep :// | sed -e's,^\(.*://\).*,\1,g')"
 url=$CLONE_URI
 [ -z "$proto"  ] || url="$(echo "$CLONE_URI" | sed 's|'$proto'||')"
 path="$(echo "$url" | grep / | cut -d/ -f2-)"
+path='/'+$path
 
 ESCAPED_SITE_NAME=$(printf '%s\n' "$GIT_SITE_NAME" | sed -e 's/[]\/$*.^[]/\\&/g');
 ESCAPED_PATH=$(printf '%s\n' "$path" | sed -e 's/[]\/$*.^[]/\\&/g');
