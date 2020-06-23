@@ -57,8 +57,8 @@ cp -R ./template ./template.temp/
 sed '/#<<<SOURCE_CONFIG_HERE>>>/s/.*/\. '$ESCAPED_HOME'\/config\.rc/' ./template/post-receive > ./template.temp/post-receive
 
 ## Move all 3 files into users directories
-mv .stagit-newrepo /usr/local/bin/stagit-newrepo
-mv .stagit-gen-index /usr/local/bin/stagit-gen-index
+mv ./stagit-newrepo.temp /usr/local/bin/stagit-newrepo
+mv ./stagit-gen-index.temp /usr/local/bin/stagit-gen-index
 chmod +x /usr/local/bin/stagit-newrepo
 chmod +x /usr/local/bin/stagit-gen-index
-mv ./template $GIT_HOME/template
+mv ./template.temp $GIT_HOME/template
