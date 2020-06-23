@@ -16,7 +16,7 @@ echo
 
 echo "The following packages will be needed: git, make, gcc, libgit2-dev, nginx, certbot, python-certbot-nginx, git-core, fcgiwrap, apache2-utils"
 echo "I can install these packages for you in case you are missing any (Ubuntu/Debian only)"
-confirm  "Should I install the packages? [y/N]?" || installPackages
+confirm  "Should I install the packages? [y/N]?" && installPackages
 
 ## Get stagit, compile and install
 # Don't reinstall, if we already have stagit
@@ -87,7 +87,7 @@ mv ./git-http-backend.conf.temp /etc/nginx/git-http-backend.conf
 
 # Get path of git clone URL
 proto="$(echo "$CLONE_URI" | grep :// | sed -e's,^\(.*://\).*,\1,g')"
-url="$(echo "${1/$proto/}")"
+url="$(echo "$CLONE_URI" | sed 's|'$proto'||')"
 path="$(echo "$url" | grep / | cut -d/ -f2-)"
 
 ESCAPED_SITE_NAME=$(printf '%s\n' "$GIT_SITE_NAME" | sed -e 's/[]\/$*.^[]/\\&/g');
