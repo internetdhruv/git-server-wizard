@@ -32,7 +32,7 @@ confirm "Are you sure this is the config you want [y/N]" || exit 1
 confirm "Are you absolutely sure? [y/N]" || exit 1
 
 ## Make the git user
-grep '$GIT_USER' /etc/passwd >/dev/null || $adduser $GIT_USER || errorOut
+grep '$GIT_USER' /etc/passwd >/dev/null || adduser $GIT_USER || errorOut
 
 ## Make the git dir
 mkdir -p $GIT_HOME
