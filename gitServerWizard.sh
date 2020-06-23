@@ -2,7 +2,7 @@
 #
 #
 
-if [ "$EUID" -ne 0 ]; then
+if [ $(id -u) -ne 0 ]; then
     echo "git-server-wizard must be run as root... exiting..."
     exit 1
 fi
