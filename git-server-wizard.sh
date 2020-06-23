@@ -2,6 +2,10 @@
 #
 # Author: Dhruv Sharma
 
+## Source files
+. ./config.rc
+. ./utils.sh
+
 if [ $(id -u) -ne 0 ]; then
     echo "git-server-wizard must be run as root... exiting..."
     exit 1
@@ -13,10 +17,6 @@ echo
 echo "The following packages will be needed: git, make, gcc, libgit2-dev, nginx, certbot, python-certbot-nginx, git-core, fcgiwrap, apache2-utils"
 echo "I can install these packages for you in case you are missing any (Ubuntu/Debian only)"
 confirm  "Should I install the packages? [y/N]?" || installPackages
-
-## Source files
-. ./config.rc
-. ./utils.sh
 
 ## Get stagit, compile and install
 # Don't reinstall, if we already have stagit
