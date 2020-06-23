@@ -54,5 +54,5 @@ ESCAPED_HOME=$(printf '%s\n' "$GIT_HOME" | sed -e 's/[]\/$*.^[]/\\&/g');
 sed '/#<<<SOURCE_CONFIG_HERE>>>/s/.*/\. '$ESCAPED_HOME'\/config\.rc/' ./stagit-newrepo > ./stagit-newrepo.temp
 sed '/#<<<SOURCE_CONFIG_HERE>>>/s/.*/\. '$ESCAPED_HOME'\/config\.rc/' ./stagit-gen-index > ./stagit-newrepo.temp
 cp -R ./template ./template.temp/
-sed '/#<<<SOURCE_CONFIG_HERE>>>/s/.*/\. '$ESCAPED_HOME'\/config\.rc/' ./template.temp/post-receive > ./template.temp/post-receive
+sed '/#<<<SOURCE_CONFIG_HERE>>>/s/.*/\. '$ESCAPED_HOME'\/config\.rc/' ./template/post-receive > ./template.temp/post-receive
 
