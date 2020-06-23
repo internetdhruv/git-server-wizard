@@ -37,5 +37,5 @@ getStagit() {
 }
 
 installPackages() {
-    apt install git make gcc libgit2-dev nginx certbot git-core fcgiwrap apache2-utils python-certbot-nginx
+    apt install git make gcc libgit2-dev nginx certbot git-core fcgiwrap apache2-utils python3-certbot-nginx
 }
