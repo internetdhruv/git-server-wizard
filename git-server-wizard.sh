@@ -80,5 +80,18 @@ echo
 echo "[git-server-wizard] Setting up nginx..."
 
 echo "[git-server-wizard] Creating git http backend for git clone"
-sed 's/<<<SOURCE_CONFIG_HERE>>>/'$ESCAPED_HOME'\/config\.rc/' ./git-http-backend.conf > ./git-http-backend.conf.temp
+sed 's/<<<SOURCE_CONFIG_HERE>>>/'$ESCAPED_HOME'/' ./git-http-backend.conf > ./git-http-backend.conf.temp
 mv ./git-http-backend.conf.temp /etc/nginx/git-http-backend.conf
+
+## Setup nginx
+
+# Get path of git clone URL
+proto="$(echo "$CLONE_URI" | grep :// | sed -e's,^\(.*://\).*,\1,g')"
+url="$(echo "${1/$proto/}")"
+path="$(echo "$url" | grep / | cut -d/ -f2-)"
+
+ESCAPED_SITE_NAME=$(printf '%s\n' "$GIT_SITE_NAME" | sed -e 's/[]\/$*.^[]/\\&/g');
+ESCAPED_PATH=$(printf '%s\n' "$path" | sed -e 's/[]\/$*.^[]/\\&/g');
+sed 's/<<<SERVER_NAME_HERE>>>/'$ESCAPED_SITE_NAME'/' ./git-nginx.conf > ./git-nginx.conf.temp
+sed -i 's/<<<GIT_HOME_HERE>>>/'$ESCAPED_HOME'/' ./git-nginx.conf.temp
+sed -i 's/<<<PATH_HERE>>>/'$ESCAPED_PATH'/' ./git-nginx.conf.temp

@@ -8,19 +8,21 @@
 # any blank fields, but if it fails, strange things may happen.
 
 # The default fields here are what I suggest you use. Except for
-# CLONE_URI, which would be your choice. Though I do recommend
+# GIT_SITE_NAME, which would be your choice. Though I do recommend
 # "https://git.<site-name.com>" since that results in short
 # clone urls that are easy to work with.
 
 # Again, I strongly suggest you use the defaults, and just edit
-# CLONE_URI. Even for that, read my suggestions in the docs
-# below
+# GIT_SITE_NAME.
 
+# DO NOT put 'http[s]://www.' in any of these variables.
+# The format for any URL is <subdomain>.<domain>.<tld>/<path>
 ######################## EDIT THESE ########################
 GIT_USER="git"
 GIT_HOME="/home/$GIT_USER"
 WWW_HOME="/var/www/htdocs/git"
-CLONE_URI=""
+GIT_SITE_NAME="git.<my_site.com>"
+CLONE_URI="$GIT_SITE_NAME"
 DEFAULT_OWNER="Fake Name"
 DEFAULT_DESCRIPTION="Default Description"
 ###########################################################
@@ -55,7 +57,7 @@ DEFAULT_DESCRIPTION="Default Description"
 ######### CLONE_URI
 # This is the URL which will be displayed on the website
 # for cloning your website. I suggest
-# "https://git.<site-name.com>" since that would make
+# "git.<site-name.com>" since that would make
 # your clone repos something like 
 # "https://git.<site-name.com>/<repo>.git"
 
