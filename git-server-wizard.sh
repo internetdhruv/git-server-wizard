@@ -87,6 +87,7 @@ mv ./git-http-backend.conf.temp /etc/nginx/git-http-backend.conf
 
 # Get path of git clone URL
 proto="$(echo "$CLONE_URI" | grep :// | sed -e's,^\(.*://\).*,\1,g')"
+url=$proto
 [ -z "$proto"  ] || url="$(echo "$CLONE_URI" | sed 's|'$proto'||')"
 path="$(echo "$url" | grep / | cut -d/ -f2-)"
 
