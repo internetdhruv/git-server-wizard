@@ -116,3 +116,5 @@ echo "You can now create new repositories with 'sudo stagit-newrepo'. You can ad
 echo "To edit your website styling and logo, add logo.png and style.css to $WWW_HOME and edit $WWW_HOME/index.html"
 echo
 echo "To enable password based git repo access (for pushing and stuff), create a new user with the following command 'sudo htpasswd -Bc /etc/nginx/.htpasswd <user-name>'. You will then be prompted to enter the password. This will store in /etc/nginx/.htpasswd the username and bcrypt hash of the password. Read the htpasswd documentation for more information if you would like a way for users to create accounts without having access to your server itself."
+
+cleanup
