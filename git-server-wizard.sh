@@ -114,3 +114,5 @@ echo "${YELLOW}If you want https/ssl on this website. Run 'certbot --nginx' and 
 echo
 echo "You can now create new repositories with 'sudo stagit-newrepo'. You can add your ssh keys to $GIT_USER/.ssh to get ssh based git access to your repos. The address will be $GIT_USER@<site-name.com>:$GIT_HOME/<repo>.git . If your git repositories are in the git users home directory, you can even avoid long path at the end of that address and use :<repo>.git"
 echo "To edit your website styling and logo, add logo.png and style.css to $WWW_HOME and edit $WWW_HOME/index.html"
+echo
+echo "To enable password based git repo access (for pushing and stuff), create a new user with the following command 'sudo htpasswd -Bc /etc/nginx/.htpasswd <user-name>'. You will then be prompted to enter the password. This will store in /etc/nginx/.htpasswd the username and bcrypt hash of the password. Read the htpasswd documentation for more information if you would like a way for users to create accounts without having access to your server itself."
