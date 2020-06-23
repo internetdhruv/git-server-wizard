@@ -52,7 +52,7 @@ cp ./config.rc $GIT_HOME
 ## Modify the temp files so they contain the correct path:
 ESCAPED_HOME=$(printf '%s\n' "$GIT_HOME" | sed -e 's/[]\/$*.^[]/\\&/g');
 sed '/#<<<SOURCE_CONFIG_HERE>>>/s/.*/\. '$ESCAPED_HOME'\/config\.rc/' ./stagit-newrepo > ./stagit-newrepo.temp
-sed '/#<<<SOURCE_CONFIG_HERE>>>/s/.*/\. '$ESCAPED_HOME'\/config\.rc/' ./stagit-gen-index > ./stagit-newrepo.temp
+sed '/#<<<SOURCE_CONFIG_HERE>>>/s/.*/\. '$ESCAPED_HOME'\/config\.rc/' ./stagit-gen-index > ./stagit-gen-index.temp
 cp -R ./template ./template.temp/
 sed '/#<<<SOURCE_CONFIG_HERE>>>/s/.*/\. '$ESCAPED_HOME'\/config\.rc/' ./template/post-receive > ./template.temp/post-receive
 
