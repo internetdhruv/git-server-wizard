@@ -100,7 +100,7 @@ sed -i 's/<<<GIT_HOME_HERE>>>/'$ESCAPED_HOME'/' ./git-nginx.conf.temp
 sed -i 's/<<<PATH_HERE>>>/'$ESCAPED_PATH'/' ./git-nginx.conf.temp
 
 [ -d "/etc/nginx/sites-available" ] && [ -d "/etc/nginx/sites-enabled" ] && NGINX_FOUND=0
-[ -z "$NGINX_FOUND" ] && mv ./git-nginx.conf.temp /etc/nginx/sites-available/git-nginx.conf
-[ -z "$NGINX_FOUND" ] && ln -s /etc/nginx/sites-available/git-nginx.conf /etc/nginx/sites-enabled/git-nginx.conf
+[ -z "$NGINX_FOUND" ] || mv ./git-nginx.conf.temp /etc/nginx/sites-available/git-nginx.conf
+[ -z "$NGINX_FOUND" ] || ln -s /etc/nginx/sites-available/git-nginx.conf /etc/nginx/sites-enabled/git-nginx.conf
 
-[ -z "$NGINX_FOUND" ] || echo "${YELLOW}[git-server-wizard] I was unable to load your nginx config. Take .git-nginx.conf.temp and place it in your nginx config.${NC}"
+[ -z "$NGINX_FOUND" ] && echo "${YELLOW}[git-server-wizard] I was unable to load your nginx config. Take .git-nginx.conf.temp and place it in your nginx config.${NC}"
