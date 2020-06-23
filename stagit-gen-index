@@ -1,0 +1,10 @@
+#! /bin/sh
+#
+# Original Author: Cale "poptart" Black @ https://www.hosakacorp.net/
+# With modifications by:
+# Dhruv Sharma
+
+set -eu
+
+#<<<SOURCE_CONFIG_HERE>>>
+stagit-index "$GIT_HOME"/*.git > "$WWW_HOME/index.html"

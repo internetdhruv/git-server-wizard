@@ -1,0 +1,52 @@
+#! /bin/sh
+#
+# Original Author: Cale "poptart" Black @ https://www.hosakacorp.net/
+# With modifications by:
+# Dhruv Sharma
+
+set -eu
+
+#<<<SOURCE_CONFIG_HERE>>>
+
+e_log() {
+    printf '%s
+' "$*"
+}
+
+e_err() {
+    printf '%s
+' "$*" >&2
+}
+
+e_exit() {
+    e_err "$*"
+    exit 1
+}
+
+DESC=""
+REPO=""
+
+if [ $# -gt 1 ]; then
+        DESC="$2"
+else
+        DESC="$DEFAULT_DESCRIPTION"
+fi
+
+if [ $# -eq 0 ]; then
+        e_exit "not enough args"
+else
+        REPO="$(basename "$1")"
+fi
+
+git init --bare "$GIT_HOME/$REPO.git"
+cp "$GIT_HOME/template/post-receive" "$GIT_HOME/$REPO.git/hooks/post-receive"
+echo "$CLONE_URI/$REPO.git" > "$GIT_HOME/$REPO.git/url"
+echo "$DEFAULT_OWNER" > "$GIT_HOME/$REPO.git/owner"
+if [ -n "$DESC" ]; then
+        echo "$DESC" > "$GIT_HOME/$REPO.git/description"
+else
+        echo "this is a placeholder" > "$GIT_HOME/$REPO.git/description"
+ fi
+chmod u+x "$GIT_HOME/$REPO.git/hooks/post-receive"
+mkdir "$WWW_HOME/$REPO"
+/usr/local/bin/stagit-gen-index

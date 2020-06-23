@@ -1,0 +1,24 @@
+#! /bin/sh
+#
+# Original Author: Cale "poptart" Black @ https://www.hosakacorp.net/
+# With modifications by:
+# Dhruv Sharma
+
+set -euf
+
+#<<<SOURCE_CONFIG_HERE>>>
+
+export LC_CTYPE='en_US.UTF-8'
+src="$(pwd)"
+name=$(basename "$src")
+dst="$WWW_HOME/$(basename "$name" '.git')"
+mkdir -p "$dst"
+cd "$dst" || exit 1
+
+echo "[stagit] building $dst"
+/usr/local/bin/stagit "$src"
+
+echo "[stagit] linking $dst"
+ln -sf log.html index.html
+ln -sf ../style.css style.css
+ln -sf ../logo.png logo.png
