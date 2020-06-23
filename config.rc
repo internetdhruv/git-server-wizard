@@ -1,0 +1,63 @@
+#! /bin/sh
+#
+# Author: Dhruv Sharma
+
+# This file controls a lot of the configuration settings for
+# your private git server setup. Edit this BEFORE you run
+# the main script. The script will try to see if this file has
+# any blank fields, but if it fails, strange things may happen.
+
+# The default fields here are what I suggest you use. Except for
+# CLONE_URI, which would be your choice. Though I do recommend
+# "https://git.<site-name.com>" since that results in short
+# clone urls that are easy to work with.
+
+# Again, I strongly suggest you use the defaults, and just edit
+# CLONE_URI. Even for that, read my suggestions in the docs
+# below
+
+######################## EDIT THESE ########################
+GIT_USER="git"
+GIT_HOME="/home/$GIT_USER"
+WWW_HOME="/var/www/htdocs/git"
+CLONE_URI=""
+DEFAULT_OWNER="Fake Name"
+DEFAULT_DESCRIPTION="Default Description"
+###########################################################
+
+
+######################## DOCS  ########################
+
+######### GIT_USER
+# This will be the new user created on your system who will
+# control the git server. This also means that if you want
+# easy, passwordless git-push's you will add
+# git@<site-name.com>:<path-to-repo>.git as your git
+# remotes. I suggest you leave this user as git, unless
+# you are really opposed to that idea.
+
+######### GIT_HOME
+# This is the directory where all your git repositories
+# will live. This could be any directory, anywhere on the
+# system; but there are 2 reasons why I picked this as the
+# best choice:
+# 1: Easy permission setup since this is in the gitusers home
+# 2: ssh based git remote URL will be something like
+#       git@<site-name>.com:<repo-name>.git
+#    which looks the best of any other choice.
+
+######### WWW_HOME
+# This is where the documents for the web view of your git
+# repo (stagit) will live. This is where everyone puts there
+# files. Change it if you wish; I cannot guarantee if it
+# will work.
+
+######### CLONE_URI
+# This is the URL which will be displayed on the website
+# for cloning your website. I suggest
+# "https://git.<site-name.com>" since that would make
+# your clone repos something like 
+# "https://git.<site-name.com>/<repo>.git"
+
+######### DEFAULT_OWNER|DESCRIPTION
+# Self explanatory default git repo settings
