@@ -7,7 +7,7 @@
 . ./utils.sh
 
 if [ $(id -u) -ne 0 ]; then
-    echo "git-server-wizard must be run as root... exiting..."
+    echo "${RED}git-server-wizard must be run as root... exiting...${NC}"
     exit 1
 fi
 
@@ -81,7 +81,8 @@ echo "[git-server-wizard] Setting up nginx..."
 
 echo "[git-server-wizard] Creating git http backend for git clone"
 sed 's/<<<SOURCE_CONFIG_HERE>>>/'$ESCAPED_HOME'/' ./git-http-backend.conf > ./git-http-backend.conf.temp
-mv ./git-http-backend.conf.temp /etc/nginx/git-http-backend.conf
+[ -d "/etc/nginx" ] && mv ./git-http-backend.conf.temp /etc/nginx/git-http-backend.conf
+[ -d "/etc/nginx" ] || echo "${YELLOW}[git-server-wizard] I was unable to find your nginx directory. This could be because you don't have nginx on this system. Please copy .git-http-backend.conf.temp to /etc/nginx/git-http-backend.conf or wherever you nginx config is. Remember to remove the .temp suffix when you copy${NC}"
 
 ## Setup nginx
 
@@ -97,3 +98,9 @@ ESCAPED_PATH=$(printf '%s\n' "$path" | sed -e 's/[]\/$*.^[]/\\&/g');
 sed 's/<<<SERVER_NAME_HERE>>>/'$ESCAPED_SITE_NAME'/' ./git-nginx.conf > ./git-nginx.conf.temp
 sed -i 's/<<<GIT_HOME_HERE>>>/'$ESCAPED_HOME'/' ./git-nginx.conf.temp
 sed -i 's/<<<PATH_HERE>>>/'$ESCAPED_PATH'/' ./git-nginx.conf.temp
+
+[ -d "/etc/nginx/sites-available" ] && [ -d "/etc/nginx/sites-enabled" ] && NGINX_FOUND=0
+[ -z "$NGINX_FOUND" ] && mv ./git-nginx.conf.temp /etc/nginx/sites-available/git-nginx.conf
+[ -z "$NGINX_FOUND" ] && ln -s /etc/nginx/sites-available/git-nginx.conf /etc/nginx/sites-enabled/git-nginx.conf
+
+[ -z "$NGINX_FOUND" ] || echo "${YELLOW}[git-server-wizard] I was unable to load your nginx config. Take .git-nginx.conf.temp and place it in your nginx config.${NC}"

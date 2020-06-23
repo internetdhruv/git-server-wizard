@@ -1,5 +1,10 @@
 #! /bin/sh
 
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+GREEN='\033[1;332m'
+NC='\033[0m'
+
 TEMP_DIR="./.git-server-wizard.temp.d"
 STAGIT_CLONE_DIR="$TEMP_DIR/.stagit"
 
@@ -9,7 +14,7 @@ cleanup() {
 
 errorOut() {
     cleanup
-    echo "[git-server-wizard] An error occured. Please see the previous output to find out what went wrong"
+    echo "${RED}[git-server-wizard] An error occured. Please see the previous output to find out what went wrong${NC}"
     exit 1
 }
 
@@ -27,7 +32,7 @@ confirm() {
 }
 
 getStagit() {
-    echo "[git-server-wizard] stagit not found. Downloading and installing..."
+    echo "${YELLOW}[git-server-wizard] stagit not found. Downloading and installing...${NC}"
     cd
     git clone git://git.codemadness.org/stagit $STAGIT_CLONE_DIR
     cd .stagit.temp.d || errorOut
