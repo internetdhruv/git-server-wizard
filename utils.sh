@@ -35,7 +35,7 @@ getStagit() {
     echo "${YELLOW}[git-server-wizard] stagit not found. Downloading and installing...${NC}"
     cd
     git clone git://git.codemadness.org/stagit $STAGIT_CLONE_DIR
-    cd .stagit.temp.d || errorOut
+    cd $STAGIT_CLONE_DIR || errorOut
     sudo apt install make gcc libgit2-dev
     make && make install
     (which stagit >/dev/null 2>&1 && which stagit >/dev/null 2>&1) || errorOut
